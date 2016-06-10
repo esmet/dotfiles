@@ -179,7 +179,7 @@ endif
 " always only create one connections in one Vim instance. It is not practical
 " if you are using multiple data connections in one Vim instance.
 func ResetCScopeDB()
-    :!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > .cscope.files &&
+    :!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' | grep -v 'build/' > .cscope.files &&
         \cscope -q -k -b -i .cscope.files -f .cscope.out && 
 	\echo Built cscope database from $(cat .cscope.files | wc -l) files
     :cs kill -1
