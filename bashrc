@@ -93,3 +93,8 @@ if [[ -S "$SSH_AUTH_SOCK" && ! -h "$SSH_AUTH_SOCK" ]]; then
     ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock;
 fi
 export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock;
+
+[[ -s "/home/jesmet/.gvm/scripts/gvm" ]] && source "/home/jesmet/.gvm/scripts/gvm"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

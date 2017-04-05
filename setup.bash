@@ -28,4 +28,14 @@ if [ ! -d ctrlp ] ; then
     git clone https://github.com/kien/ctrlp.vim.git ctrlp
     echo ''
 fi
+if [ ! -d vim-go ] ; then
+    echo 'Installing vim-go ...'
+    git clone git@github.com:fatih/vim-go vim-go
+    echo ''
+fi
+if [ ! -d syntastic ] ; then
+    echo 'Installing syntastic ...'
+    git clone git@github.com:vim-syntastic/syntastic syntastic
+    echo ''
+fi
 popd &>/dev/null

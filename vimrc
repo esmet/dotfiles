@@ -23,12 +23,14 @@ autocmd FileType h set sw=8 ts=8 sts=8 noexpandtab
 autocmd FileType hpp set sw=8 ts=8 sts=8 noexpandtab
 autocmd FileType python set sw=4 ts=4 sts=4 expandtab
 autocmd FileType java set sw=4 ts=4 sts=4 expandtab
-autocmd FileType javascript set shiftwidth=4 tabstop=4 softtabstop=4 noexpandtab
+"autocmd FileType javascript set shiftwidth=4 tabstop=4 softtabstop=4 expandtab
+autocmd FileType javascript set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd FileType jade set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd FileType ruby set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd FileType html set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd FileType lisp set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd BufNew,BufEnter *.erb set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+autocmd BufNew,BufEnter *.cmake set shiftwidth=4 tabstop=4 softtabstop=4 expandtab
 autocmd BufNew,BufEnter *.h set ft=c
 
 " 4 spaces to the prevailing indentation when continuing a line
@@ -73,6 +75,7 @@ map mm <Esc>:qa<Return>
 
 " building
 map MM <Esc>:make -C build -j12<Return>
+map BB <Esc>:GoBuild<Return>
 
 " so I can hack things
 autocmd FileType c syntax match cTodo /HACK/
@@ -113,10 +116,19 @@ if &diff
 endi
 
 " ctrpl ignore
-let g:ctrlp_custom_ignore = 'opt\|dbg\|build\|cmake_build\|cmake_dbg\|cmake_opt\|node_modules'
+let g:ctrlp_custom_ignore = '3rdParty\|github.com\|golang.org\|submodules\|opt\|dbg\|build\|cmake_build\|cmake_dbg\|cmake_opt\|node_modules'
 let g:ctrlp_max_files = 0
 let g:ctrlp_follow_symlinks = 2
 
+" vim-go stuff
+let g:go_fmt_autosave = 0
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+au FileType go nmap <Leader>gd <Plug>(go-doc)
 
 " This tests to see if vim was configured with the '--enable-cscope' option
 " when it was compiled.  If it wasn't, time to recompile vim... 
@@ -179,7 +191,7 @@ endif
 " always only create one connections in one Vim instance. It is not practical
 " if you are using multiple data connections in one Vim instance.
 func ResetCScopeDB()
-    :!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' | grep -v 'build/' > .cscope.files &&
+    :!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' | grep -v 'build/\|node_modules\|\.git/' > .cscope.files &&
         \cscope -q -k -b -i .cscope.files -f .cscope.out && 
 	\echo Built cscope database from $(cat .cscope.files | wc -l) files
     :cs kill -1
