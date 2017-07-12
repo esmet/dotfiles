@@ -30,17 +30,17 @@ if [ ! -d ctrlp ] ; then
 fi
 if [ ! -d vim-go ] ; then
     echo 'Installing vim-go ...'
-    git clone git@github.com:fatih/vim-go vim-go
+    git clone https://github.com/fatih/vim-go vim-go
     echo ''
 fi
 if [ ! -d syntastic ] ; then
     echo 'Installing syntastic ...'
-    git clone git@github.com:vim-syntastic/syntastic syntastic
+    git clone https://github.com/vim-syntastic/syntastic syntastic
     echo ''
 fi
 if [ ! -d vim-puppet ] ; then
     echo 'Installing vim-puppet'
-    git clone git@github.com:rodjek/vim-puppet vim-puppet
+    git clone https://github.com/rodjek/vim-puppet vim-puppet
     echo ''
 fi
 popd &>/dev/null
