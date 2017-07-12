@@ -29,6 +29,7 @@ autocmd FileType jade set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd FileType ruby set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd FileType html set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd FileType lisp set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+autocmd FileType puppet set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd BufNew,BufEnter *.erb set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd BufNew,BufEnter *.cmake set shiftwidth=4 tabstop=4 softtabstop=4 expandtab
 autocmd BufNew,BufEnter *.h set ft=c
@@ -203,3 +204,8 @@ map HH :call ResetCScopeDB()<Return>
 if has("gui_macvim")
     set guifont=Anonymous\ Pro:h20
 endif
+
+" puppet-lint
+let g:syntastic_puppet_lint_arguments = "--no-80chars-check --no-only_variable_string-check"
+let g:syntastic_puppet_puppetlint_args = "--no-80chars-check --no-only_variable_string-check"
+let g:syntastic_python_pylint_args = "--disable=missing-docstring --disable=invalid-name --disable=line-too-long"

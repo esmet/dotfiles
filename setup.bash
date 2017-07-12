@@ -38,4 +38,9 @@ if [ ! -d syntastic ] ; then
     git clone git@github.com:vim-syntastic/syntastic syntastic
     echo ''
 fi
+if [ ! -d vim-puppet ] ; then
+    echo 'Installing vim-puppet'
+    git clone git@github.com:rodjek/vim-puppet vim-puppet
+    echo ''
+fi
 popd &>/dev/null
