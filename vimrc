@@ -23,6 +23,7 @@ autocmd FileType h set sw=8 ts=8 sts=8 noexpandtab
 autocmd FileType hpp set sw=8 ts=8 sts=8 noexpandtab
 autocmd FileType python set sw=4 ts=4 sts=4 expandtab
 autocmd FileType java set sw=4 ts=4 sts=4 expandtab
+autocmd FileType php set sw=4 ts=4 sts=4 expandtab
 "autocmd FileType javascript set shiftwidth=4 tabstop=4 softtabstop=4 expandtab
 autocmd FileType javascript set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd FileType jade set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
