@@ -2,8 +2,10 @@ execute pathogen#infect()
 Helptags
 
 syntax on
+filetype on
 
 set number
+set modeline
 set pastetoggle=<F2>
 set smartindent
 set incsearch
@@ -16,12 +18,16 @@ filetype plugin on
 colorscheme desert
 cmap w!! w !sudo tee >/dev/null %
 
+autocmd FileType go set sw=8 ts=8 sts=8 noexpandtab
 autocmd FileType c set sw=8 ts=8 sts=8 noexpandtab
 autocmd FileType cc set sw=8 ts=8 sts=8 noexpandtab
 autocmd FileType cpp set sw=8 ts=8 sts=8 noexpandtab
 autocmd FileType h set sw=8 ts=8 sts=8 noexpandtab
 autocmd FileType hpp set sw=8 ts=8 sts=8 noexpandtab
 autocmd FileType python set sw=4 ts=4 sts=4 expandtab
+au! FileType python setl nosmartindent
+autocmd BufNew,BufEnter *.py set sw=4 ts=4 sts=4 expandtab
+autocmd BufNew,BufEnter *.py setl nosmartindent
 autocmd FileType java set sw=4 ts=4 sts=4 expandtab
 autocmd FileType php set sw=4 ts=4 sts=4 expandtab
 "autocmd FileType javascript set shiftwidth=4 tabstop=4 softtabstop=4 expandtab
@@ -31,9 +37,17 @@ autocmd FileType ruby set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd FileType html set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd FileType lisp set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd FileType puppet set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+autocmd FileType yaml set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+"autocmd FileType yaml set shiftwidth=2 tabstop=2 softtabstop=2 expandtab noai nocin nosi inde=
+"au! FileType yaml setl noai nocin nosi inde=
+autocmd BufNew,BufEnter Jenkinsfile set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+autocmd BufNew,BufEnter config set ft=yaml
+autocmd BufNew,BufEnter *.conf set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd BufNew,BufEnter *.erb set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd BufNew,BufEnter *.cmake set shiftwidth=4 tabstop=4 softtabstop=4 expandtab
 autocmd BufNew,BufEnter *.h set ft=c
+autocmd BufNew,BufEnter *.ts set ft=javascript
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
 " 4 spaces to the prevailing indentation when continuing a line
 set cinoptions=+4,(4
@@ -118,7 +132,7 @@ if &diff
 endi
 
 " ctrpl ignore
-let g:ctrlp_custom_ignore = '3rdParty\|github.com\|golang.org\|submodules\|opt\|dbg\|build\|cmake_build\|cmake_dbg\|cmake_opt\|node_modules'
+let g:ctrlp_custom_ignore = '3rdParty\|vendor\|submodules\|opt\|dbg\|build\|cmake_build\|cmake_dbg\|cmake_opt\|node_modules\|target'
 let g:ctrlp_max_files = 0
 let g:ctrlp_follow_symlinks = 2
 
@@ -193,7 +207,7 @@ endif
 " always only create one connections in one Vim instance. It is not practical
 " if you are using multiple data connections in one Vim instance.
 func ResetCScopeDB()
-    :!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' | grep -v 'build/\|node_modules\|\.git/' > .cscope.files &&
+    :!find . -iname '*.py' -o -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' | grep -v 'build/\|node_modules\|\.git/' > .cscope.files &&
         \cscope -q -k -b -i .cscope.files -f .cscope.out && 
 	\echo Built cscope database from $(cat .cscope.files | wc -l) files
     :cs kill -1
@@ -209,4 +223,4 @@ endif
 " puppet-lint
 let g:syntastic_puppet_lint_arguments = "--no-80chars-check --no-only_variable_string-check"
 let g:syntastic_puppet_puppetlint_args = "--no-80chars-check --no-only_variable_string-check"
-let g:syntastic_python_pylint_args = "--disable=missing-docstring --disable=invalid-name --disable=line-too-long"
+let g:syntastic_python_pylint_args = "--disable=missing-docstring --disable--disable=invalid-name --disable=line-too-long"
