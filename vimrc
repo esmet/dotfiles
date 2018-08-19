@@ -38,6 +38,9 @@ autocmd FileType html set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd FileType lisp set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd FileType puppet set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd FileType yaml set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+autocmd FileType yaml setlocal indentkeys-=<:>
+autocmd FileType yaml setlocal indentkeys-=:
+autocmd FileType yaml setlocal indentkeys-=-
 "autocmd FileType yaml set shiftwidth=2 tabstop=2 softtabstop=2 expandtab noai nocin nosi inde=
 "au! FileType yaml setl noai nocin nosi inde=
 autocmd BufNew,BufEnter Jenkinsfile set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
