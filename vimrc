@@ -36,6 +36,7 @@ autocmd FileType jade set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd FileType ruby set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd FileType html set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd FileType lisp set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+autocmd FileType scala set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd FileType puppet set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd FileType yaml set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd FileType yaml setlocal indentkeys-=<:>
@@ -45,8 +46,10 @@ autocmd FileType yaml setlocal indentkeys-=-
 "au! FileType yaml setl noai nocin nosi inde=
 autocmd BufNew,BufEnter Jenkinsfile set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd BufNew,BufEnter config set ft=yaml
+autocmd BufNew,BufEnter pipeline.json set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd BufNew,BufEnter *.conf set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd BufNew,BufEnter *.erb set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+autocmd BufNew,BufEnter *.scala set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd BufNew,BufEnter *.cmake set shiftwidth=4 tabstop=4 softtabstop=4 expandtab
 autocmd BufNew,BufEnter *.h set ft=c
 autocmd BufNew,BufEnter *.ts set ft=javascript
@@ -95,6 +98,7 @@ map mm <Esc>:qa<Return>
 " building
 map MM <Esc>:make -C build -j12<Return>
 map BB <Esc>:GoBuild<Return>
+map II <Esc>:!make install<Return>
 
 " so I can hack things
 autocmd FileType c syntax match cTodo /HACK/

@@ -17,14 +17,16 @@ function kcc() {
                 echo ""
         fi
 }
-function acc() {
-	current_ankhctx=$(grep current-context: ~/.ankh/config 2>/dev/null | awk '{print $2}' 2>/dev/null)
-        if [ $? -eq 0 ]
-        then
-                echo ankh:$current_ankhctx
-        else
-                echo ""
-        fi
+curl_time() {
+    curl -so /dev/null -w "\
+   namelookup:  %{time_namelookup}s\n\
+      connect:  %{time_connect}s\n\
+   appconnect:  %{time_appconnect}s\n\
+  pretransfer:  %{time_pretransfer}s\n\
+     redirect:  %{time_redirect}s\n\
+starttransfer:  %{time_starttransfer}s\n\
+-------------------------\n\
+        total:  %{time_total}s\n" "$@"
 }
 
 #NORMAL="\[\033[00m\]"
@@ -33,7 +35,7 @@ function acc() {
 #GREEN="\[\e[1;32m\]"
 #export PS1='[\[\e[0;33m\]\[\e\[m\]\[\e[0;32m]\w\[\e[m\]] \[\e[0;33m][$(gcb)] \[\e[0;34m][$(kcc)]\[\e[m\] $ '
 #export PS1='[\[\e\[0;33m\]\[\e\[m\]\[\e\[0;32m\]\w\[\e[m\]] \[\e\[0;33m\]\[$(gcb)\]\[\e[m\] \[\e\[0;33m\]\[$(kcc)\]\[\e[m\]$ '
-export PS1='[\[\e[0;33m\]\[\e[m\]\[\e[0;32m\]\w\[\e[m\]] \[\e[0;33m\][$(gcb)] [$(kcc)] [$(acc)]\[\e[m\]\n$ '
+export PS1='[\[\e[0;33m\]\[\e[m\]\[\e[0;32m\]\w\[\e[m\]] \[\e[0;33m\][$(gcb)] [$(kcc)]\[\e[m\]\n$ '
 
 # this better fix the wraparound issues
 shopt -s checkwinsize
@@ -61,7 +63,7 @@ else
 fi
 
 # ag rage
-alias ag="ag -if"
+alias ag="2>/dev/null ag -if"
 
 alias grep="grep --color=auto"
 
@@ -104,6 +106,8 @@ pathmunge "/usr/local/sbin"
 pathmunge "$HOME/local/bin" 
 pathmunge "$HOME/scripts"
 pathmunge "$HOME/go/bin"
+pathmunge "$HOME/psl"
+pathmunge "/opt/halyard/bin"
 
 export LD_LIBRARY_PATH="/usr/lib:/usr/local/lib64:/usr/lib64:/usr/local/adnxs/lib:$HOME/local/lib:/usr/local/lib:$LD_LIRARY_PATH"
 export C_INCLUDE_PATH="/usr/local/adnxs/include:$HOME/local/include:/usr/local/include:$C_INCLUDE_PATH"
@@ -149,3 +153,5 @@ if [[ $- =~ .*i.* ]]; then bind '"\C-r": "\C-a hh -- \C-j"'; fi
 
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
