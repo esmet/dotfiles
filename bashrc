@@ -38,9 +38,6 @@ export PS1='[\[\e[0;33m\]\[\e[m\]\[\e[0;32m\]\w\[\e[m\]] \[\e[0;33m\][$(gcb)] [$
 # this better fix the wraparound issues
 shopt -s checkwinsize
 
-# rooby
-eval "$(rbenv init -)"
-
 # disable the most irritating terminal emulation feature ever known
 stty -ixon
 
@@ -105,7 +102,6 @@ pathmunge "/usr/sbin"
 pathmunge "/usr/local/bin" 
 pathmunge "/usr/local/sbin" 
 pathmunge "$HOME/local/bin" 
-pathmunge "$HOME/.rbenv/bin"
 pathmunge "$HOME/scripts"
 pathmunge "$HOME/go/bin"
 
