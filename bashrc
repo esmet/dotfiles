@@ -106,16 +106,14 @@ pathmunge "/usr/local/sbin"
 pathmunge "$HOME/local/bin" 
 pathmunge "$HOME/scripts"
 pathmunge "$HOME/go/bin"
-pathmunge "$HOME/psl"
-pathmunge "/opt/halyard/bin"
-
-export LD_LIBRARY_PATH="/usr/lib:/usr/local/lib64:/usr/lib64:/usr/local/adnxs/lib:$HOME/local/lib:/usr/local/lib:$LD_LIRARY_PATH"
-export C_INCLUDE_PATH="/usr/local/adnxs/include:$HOME/local/include:/usr/local/include:$C_INCLUDE_PATH"
+pathmunge "$HOME/.cargo/bin"
 
 shopt -s histappend
 export HISTIGNORE="ls:cd ~:cd ..:exit:h:history"
 export HISTCONTROL="erasedups"
 export PROMPT_COMMAND="history -a" # so history flushes after each command
+
+export C_INCLUDE_PATH=
 
 function h {
     pattern=$1

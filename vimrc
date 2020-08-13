@@ -1,5 +1,6 @@
 execute pathogen#infect()
 Helptags
+let g:go_version_warning = 0
 
 syntax on
 filetype on
@@ -18,6 +19,8 @@ filetype plugin on
 colorscheme desert
 cmap w!! w !sudo tee >/dev/null %
 
+autocmd FileType sh set sw=8 ts=8 sts=8 noexpandtab
+autocmd FileType bash set sw=8 ts=8 sts=8 noexpandtab
 autocmd FileType go set sw=8 ts=8 sts=8 noexpandtab
 autocmd FileType c set sw=8 ts=8 sts=8 noexpandtab
 autocmd FileType cc set sw=8 ts=8 sts=8 noexpandtab
@@ -42,6 +45,7 @@ autocmd FileType yaml set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd FileType yaml setlocal indentkeys-=<:>
 autocmd FileType yaml setlocal indentkeys-=:
 autocmd FileType yaml setlocal indentkeys-=-
+autocmd FileType yaml setlocal indentkeys-=0#
 "autocmd FileType yaml set shiftwidth=2 tabstop=2 softtabstop=2 expandtab noai nocin nosi inde=
 "au! FileType yaml setl noai nocin nosi inde=
 autocmd BufNew,BufEnter Jenkinsfile set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
@@ -96,7 +100,7 @@ map ; :
 map mm <Esc>:qa<Return>
 
 " building
-map MM <Esc>:make -C build -j12<Return>
+map MM <Esc>:make -C build -j20<Return>
 map BB <Esc>:GoBuild<Return>
 map II <Esc>:!make install<Return>
 
