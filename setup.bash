@@ -38,14 +38,4 @@ if [ ! -d syntastic ] ; then
     git clone https://github.com/vim-syntastic/syntastic syntastic
     echo ''
 fi
-if [ ! -d vim-puppet ] ; then
-    echo 'Installing vim-puppet'
-    git clone https://github.com/rodjek/vim-puppet vim-puppet
-    echo ''
-fi
-if [ ! -d coc.nvim ] ; then
-    echo 'Installing coc.nvim'
-    git clone https://github.com/neoclide/coc.nvim
-    echo ''
-fi
 popd &>/dev/null

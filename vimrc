@@ -5,6 +5,7 @@ let g:go_version_warning = 0
 syntax on
 filetype on
 
+set backspace=indent,eol,start
 set number
 set modeline
 set pastetoggle=<F2>
@@ -22,9 +23,9 @@ cmap w!! w !sudo tee >/dev/null %
 autocmd FileType sh set sw=8 ts=8 sts=8 noexpandtab
 autocmd FileType bash set sw=8 ts=8 sts=8 noexpandtab
 autocmd FileType go set sw=8 ts=8 sts=8 noexpandtab
-autocmd FileType c set sw=8 ts=8 sts=8 noexpandtab
-autocmd FileType cc set sw=8 ts=8 sts=8 noexpandtab
-autocmd FileType cpp set sw=8 ts=8 sts=8 noexpandtab
+autocmd FileType c set sw=2 ts=2 sts=2 expandtab
+autocmd FileType cc set sw=2 ts=2 sts=2 expandtab
+autocmd FileType cpp set sw=2 ts=2 sts=2 expandtab
 autocmd FileType h set sw=8 ts=8 sts=8 noexpandtab
 autocmd FileType hpp set sw=8 ts=8 sts=8 noexpandtab
 autocmd FileType python set sw=4 ts=4 sts=4 expandtab
@@ -235,3 +236,5 @@ endif
 let g:syntastic_puppet_lint_arguments = "--no-80chars-check --no-only_variable_string-check"
 let g:syntastic_puppet_puppetlint_args = "--no-80chars-check --no-only_variable_string-check"
 let g:syntastic_python_pylint_args = "--disable=missing-docstring --disable--disable=invalid-name --disable=line-too-long"
+let g:syntastic_python_python_exec = 'python3'
+let g:syntastic_python_checkers = ['python']
