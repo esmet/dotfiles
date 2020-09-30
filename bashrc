@@ -156,3 +156,6 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 export DEV_REGISTRY=docker.io/johnesmet
 export DEV_KUBECONFIG=$HOME/.kube/config
+
+alias k="kubectl"
+[[ -s "/home/esmet/.gvm/scripts/gvm" ]] && source "/home/esmet/.gvm/scripts/gvm"
