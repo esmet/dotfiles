@@ -9,33 +9,9 @@ done
 mkdir -p ~/.vim/bundle
 mkdir -p ~/.vim/autoload
 
-# first get pathogen, then each of the plugins we want
-echo 'Ensuring pathogen is up to date ...'
-curl -Sso ~/.vim/autoload/pathogen.vim 'https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim' || (echo "failed" && exit)
-pushd ~/.vim/bundle &>/dev/null
-if [ ! -d ag ] ; then
-    echo 'Installing ag ...'
-    git clone https://github.com/rking/ag.vim ag
+# Install vundle. Later, run :PluginInstall
+if [ ! -d ~/.vim/bundle/Vundle.vim ] ; then
+    echo 'Installing vundle ...'
+    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
     echo ''
 fi
-if [ ! -d fugitive ] ; then
-    echo 'Installing fugitive ...'
-    git clone https://github.com/tpope/vim-fugitive.git fugitive
-    echo ''
-fi
-if [ ! -d ctrlp ] ; then
-    echo 'Installing ctrlp ...'
-    git clone https://github.com/kien/ctrlp.vim.git ctrlp
-    echo ''
-fi
-if [ ! -d vim-go ] ; then
-    echo 'Installing vim-go ...'
-    git clone https://github.com/fatih/vim-go vim-go
-    echo ''
-fi
-if [ ! -d syntastic ] ; then
-    echo 'Installing syntastic ...'
-    git clone https://github.com/vim-syntastic/syntastic syntastic
-    echo ''
-fi
-popd &>/dev/null

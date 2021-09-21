@@ -1,5 +1,21 @@
-execute pathogen#infect()
-Helptags
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'kien/ctrlp.vim'
+Plugin 'govim/govim'
+Plugin 'rking/ag.vim'
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+" Non-vundle vimrc below
+
 let g:go_version_warning = 0
 
 syntax on
@@ -15,6 +31,7 @@ set ignorecase
 set smartcase
 set autoindent
 set hlsearch
+set backspace=indent,eol,start
 filetype indent on
 filetype plugin on
 colorscheme desert
@@ -119,7 +136,7 @@ set wildmenu
 set wildmode=list:longest
 
 " fugitive mapping for blame
-map <Leader>b :Gblame<Return>
+map <Leader>b :Git blame<Return>
 
 " ag mappings
 map <Leader>F :Ag -f  <C-r><C-w><Return>
@@ -144,9 +161,9 @@ if &diff
 endi
 
 " ctrpl ignore
-let g:ctrlp_custom_ignore = '3rdParty\|vendor\|submodules\|opt\|dbg\|build\|cmake_build\|cmake_dbg\|cmake_opt\|node_modules\|target'
+let g:ctrlp_custom_ignore = '3rdParty\|vendor\|submodules\|opt\|dbg\|build\|cmake_build\|cmake_dbg\|cmake_opt\|node_modules\|target\|bazel-\|generated-'
 let g:ctrlp_max_files = 0
-let g:ctrlp_follow_symlinks = 2
+let g:ctrlp_follow_symlinks = 1
 
 " vim-go stuff
 let g:go_fmt_autosave = 0
@@ -232,9 +249,10 @@ if has("gui_macvim")
     set guifont=Anonymous\ Pro:h20
 endif
 
-" puppet-lint
+" syntastic
 let g:syntastic_puppet_lint_arguments = "--no-80chars-check --no-only_variable_string-check"
 let g:syntastic_puppet_puppetlint_args = "--no-80chars-check --no-only_variable_string-check"
 let g:syntastic_python_pylint_args = "--disable=missing-docstring --disable--disable=invalid-name --disable=line-too-long"
 let g:syntastic_python_python_exec = 'python3'
 let g:syntastic_python_checkers = ['python']
+let g:syntastic_cpp_compiler_options = "-std=c++17"

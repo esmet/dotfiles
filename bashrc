@@ -1,4 +1,5 @@
 source /etc/profile
+export BASH_SILENCE_DEPRECATION_WARNING=1
 function gcb() {
         current_branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
         if [ $? -eq 0 ]
@@ -35,25 +36,24 @@ starttransfer:  %{time_starttransfer}s\n\
 #GREEN="\[\e[1;32m\]"
 #export PS1='[\[\e[0;33m\]\[\e\[m\]\[\e[0;32m]\w\[\e[m\]] \[\e[0;33m][$(gcb)] \[\e[0;34m][$(kcc)]\[\e[m\] $ '
 #export PS1='[\[\e\[0;33m\]\[\e\[m\]\[\e\[0;32m\]\w\[\e[m\]] \[\e\[0;33m\]\[$(gcb)\]\[\e[m\] \[\e\[0;33m\]\[$(kcc)\]\[\e[m\]$ '
-export PS1='[\[\e[0;33m\]\[\e[m\]\[\e[0;32m\]\w\[\e[m\]] \[\e[0;33m\][$(gcb)] [$(kcc)]\[\e[m\]\n$ '
-
-# this better fix the wraparound issues
-shopt -s checkwinsize
+if [ -z "$ZSH_VERSION" ] ; then
+	export PS1='[\[\e[0;33m\]\[\e[m\]\[\e[0;32m\]\w\[\e[m\]] \[\e[0;33m\][$(gcb)] [$(kcc)]\[\e[m\]\n$ '
+fi
 
 # disable the most irritating terminal emulation feature ever known
 stty -ixon
 
 # vi bindings are great everywhere except the command line
-set -o emacs
+#set -o emacs
 
 # this bundle of joy is for portable LS colors.
 # I like yellow dictories because bold blue is
 # impossible to see on an osx terminal
 unamestr=$(uname | tr '[:upper:]' '[:lower:]')
-if [ $unamestr == 'linux' ] ; then
+if [ "$unamestr" = 'linux' ] ; then
     alias ls="ls --color=auto"
     export LS_COLORS='di=33'
-elif [ $unamestr == 'darwin' ] ; then
+elif [ "$unamestr" = 'darwin' ] ; then
     alias ls="ls -G"
     export CLICOLOR=1
     export LSCOLORS="DxGxcxdxCxegedabagacad"
@@ -103,15 +103,15 @@ pathmunge "/sbin"
 pathmunge "/usr/sbin"
 pathmunge "/usr/local/bin" 
 pathmunge "/usr/local/sbin" 
+pathmunge "/usr/local/opt/make/libexec/gnubin"
 pathmunge "$HOME/local/bin" 
 pathmunge "$HOME/scripts"
 pathmunge "$HOME/go/bin"
 pathmunge "$HOME/.cargo/bin"
+pathmunge "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin"
 
-shopt -s histappend
 export HISTIGNORE="ls:cd ~:cd ..:exit:h:history"
 export HISTCONTROL="erasedups"
-export PROMPT_COMMAND="history -a" # so history flushes after each command
 
 export C_INCLUDE_PATH=
 
@@ -126,7 +126,7 @@ if [[ -S "$SSH_AUTH_SOCK" && ! -h "$SSH_AUTH_SOCK" ]]; then
 fi
 export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock;
 
-[[ -s "/home/jesmet/.gvm/scripts/gvm" ]] && source "/home/jesmet/.gvm/scripts/gvm"
+[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 export GOPATH=$HOME/go
 
 export NVM_DIR="$HOME/.nvm"
@@ -141,21 +141,16 @@ targrep () {
 
 # add this configuration to ~/.bashrc
 export HH_CONFIG=hicolor         # get more colors
-shopt -s histappend              # append new history items to .bash_history
 export HISTCONTROL=ignorespace   # leading space hides commands from history
 export HISTFILESIZE=10000        # increase history file size (default is 500)
 export HISTSIZE=${HISTFILESIZE}  # increase history size (default is 500)
-export PROMPT_COMMAND="history -a; history -n; ${PROMPT_COMMAND}"   # mem/file sync
-# if this is interactive shell, then bind hh to Ctrl-r (for Vi mode check doc)
-#if [[ $- =~ .*i.* ]]; then bind '"\C-r": "\C-a hh -- \C-j"'; fi
-
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-
-export DEV_REGISTRY=docker.io/johnesmet
-export DEV_KUBECONFIG=$HOME/.kube/config
+[[ -s "/home/esmet/.gvm/scripts/gvm" ]] && source "/home/esmet/.gvm/scripts/gvm"
 
 alias k="kubectl"
-[[ -s "/home/esmet/.gvm/scripts/gvm" ]] && source "/home/esmet/.gvm/scripts/gvm"
+if [ -f /usr/local/opt/llvm@11/bin/clang-format ] ; then
+	export CLANG_FORMAT=/usr/local/opt/llvm@11/bin/clang-format
+fi
